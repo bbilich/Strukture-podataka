@@ -23,7 +23,7 @@ int count(const char* file)
 		return -1;
 	}
 
-	while (fgets(c,100,f) != EOF)
+	while (fgets(c,100,f) != NULL)
 	{
 			counter++;
 	}
