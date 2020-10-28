@@ -29,7 +29,7 @@ int count(const char* file)
 	}
 	return counter;
 }
-int ispis(int num, const char* file)
+int print(int num, const char* file)
 {
 	int i;
 	FILE *f;
@@ -73,6 +73,6 @@ int main()
 	num = count("TextFile2.txt");
 
 	printf("RESULTS:\n");
-	ispis(num, "TextFile2.txt");
+	print(num, "TextFile2.txt");
 
 }
