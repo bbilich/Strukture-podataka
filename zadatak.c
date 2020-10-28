@@ -24,9 +24,8 @@ int count(const char* file)
 	}
 
 	while (fgets(c,100,f) != NULL)
-	{
 			counter++;
-	}
+	
 	return counter;
 }
 int print(int num, const char* file)
