@@ -8,7 +8,7 @@ typedef struct
 	char FirstName[30];
 	char LastName[30];
 	int Grade;
-}studenti;
+}students;
 
 int count(const char* file)
 {
@@ -39,8 +39,8 @@ int print(int num, const char* file)
 		printf("Mistake!!");
 		return -2;
 	}
-	studenti *s;
-	s = (studenti *)malloc(num * sizeof(studenti));
+	students *s;
+	s = (students *)malloc(num * sizeof(students));
 
 	for (i = 0; i < num; i++)
 	{
