@@ -50,7 +50,7 @@ int main()
 		relative = 0;
 	}
 	
-	
+	fclose(File);
 	return 0;
 }
 
