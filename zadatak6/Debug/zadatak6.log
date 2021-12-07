@@ -1,0 +1,2 @@
+﻿Source.obj : error LNK2019: unresolved external symbol _AddArticleSorted referenced in function _ReadBills
+C:\Users\Korisnik\Desktop\zadatak6\Debug\zadatak6.exe : fatal error LNK1120: 1 unresolved externals
