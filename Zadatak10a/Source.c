@@ -23,7 +23,9 @@ typedef struct _Country
 	ciPosition Root;
 }Country;
 
+int Choose(coPosition P);
 int ReadFromFile(coPosition P, char* name);
+int ReadFromFile2(coPosition P, char* name, char* fname);
 int AddCountry(coPosition P, char* country, char* file);
 coPosition CreateCountry(char* name, char* fname);
 ciPosition CreateCity(char* name, int num);
@@ -36,12 +38,19 @@ int SearchCountries(coPosition P, char* name, int num);
 int main()
 {
 	Country Head = { {"0"},NULL,NULL };
-	Head.Next = NULL;
+	
+	Choose(&Head);
+
+	return EXIT_SUCCESS;
+}
+
+int Choose(coPosition P)
+{
 	char string[SIZE] = { 0 };
 	int num = 0;
 
-	ReadFromFile(&Head, "countries.txt");
-	Print(Head.Next);
+	ReadFromFile(P, "countries.txt");
+	Print(P->Next);
 	printf("\n\n");
 
 	while (1)
@@ -54,7 +63,7 @@ int main()
 
 		printf("Enter minimal population of %s cities\n", string);
 		scanf("%d", &num);
-		SearchCountries(Head.Next, string, num);
+		SearchCountries(P->Next, string, num);
 	}
 
 	return EXIT_SUCCESS;
@@ -87,12 +96,32 @@ int ReadFromFile(coPosition P, char* name)
 	return EXIT_SUCCESS;
 }
 
-coPosition CreateCountry(char* name, char* fname)
+int ReadFromFile2(coPosition P, char* name, char* fname)
 {
-	coPosition newCountry = NULL;
 	FILE* file = NULL;
 	char city[SIZE] = { 0 };
 	int num = 0;
+
+	file = fopen(fname, "r");
+	if (file == 0)
+	{
+		printf("Cannot open the file!\n");
+		return NULL;
+	}
+
+	while (!feof(file))
+	{
+		fscanf(file, "%s %d", city, &num);
+		P->Root = AddCity(city, num, P->Root);
+	}
+
+	fclose(file);
+	return EXIT_SUCCESS;
+}
+
+coPosition CreateCountry(char* name, char* fname)
+{
+	coPosition newCountry = NULL;
 
 	newCountry = (coPosition)malloc(sizeof(Country));
 	if (newCountry == NULL)
@@ -105,20 +134,8 @@ coPosition CreateCountry(char* name, char* fname)
 	newCountry->Next = NULL;
 	newCountry->Root = NULL;
 
-	file = fopen(fname, "r");
-	if (file == 0)
-	{
-		printf("Cannot open the file!\n");
-		return NULL;
-	}
-
-	while (!feof(file))
-	{
-		fscanf(file, "%s %d", city, &num);
-		newCountry->Root = AddCity(city, num, newCountry->Root);
-	}
-
-	fclose(file);
+	ReadFromFile2(newCountry, name, fname);
+	
 	return newCountry;
 }
 
@@ -207,7 +224,7 @@ int Print(coPosition P)
 	{
 		while (P != NULL)
 		{
-			printf("Country: %s\n",P->name);
+			printf("Country: %s\n", P->name);
 			printf("City: ");
 			PrintCity(P->Root);
 			printf("\n");
