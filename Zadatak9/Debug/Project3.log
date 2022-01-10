@@ -1,0 +1,6 @@
+﻿  Source.c
+C:\Users\Korisnik\Desktop\Project3\Project3\Source.c(57,23): warning C4047: '=': 'Position' differs in levels of indirection from 'int'
+C:\Users\Korisnik\Desktop\Project3\Project3\Source.c(90,23): warning C4047: '<=': 'int' differs in levels of indirection from 'Position'
+C:\Users\Korisnik\Desktop\Project3\Project3\Source.c(133,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Korisnik\Desktop\Project3\Project3\Source.c(140,10): warning C4047: 'return': 'int' differs in levels of indirection from 'Position'
+  Project3.vcxproj -> C:\Users\Korisnik\Desktop\Project3\Debug\Project3.exe
