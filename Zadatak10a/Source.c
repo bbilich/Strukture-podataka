@@ -103,10 +103,10 @@ int ReadFromFile2(coPosition P, char* name, char* fname)
 	int num = 0;
 
 	file = fopen(fname, "r");
-	if (file == 0)
+	if (file == NULL)
 	{
 		printf("Cannot open the file!\n");
-		return NULL;
+		return -1;
 	}
 
 	while (!feof(file))
