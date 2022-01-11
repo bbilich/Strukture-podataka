@@ -46,17 +46,14 @@ int main()
 	root = Insert(root, 7);
 
     PrintInorder(root, &Head);
-	printf("\n");
 	WriteInFile(Head.Next, "file.txt");
 
 	Replace(root);
 	PrintInorder(root,&Head);
-	printf("\n");
 	WriteInFile(Head.Next, "file.txt");
 
 	root2 = Random(root2);
 	PrintInorder(root2,&Head);
-	printf("\n");
 	WriteInFile(Head.Next, "file.txt");
 
 	
