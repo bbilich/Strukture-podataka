@@ -34,11 +34,12 @@ ciPosition AddCity(ciPosition P, char* name, int num);
 int PrintCity(ciPosition P);
 int Print(coPosition P);
 int SearchCities(ciPosition P, int num);
-int SearchCountries(coPosition P, char* name,int num);
+coPosition SearchCountries(coPosition P, char* name);
 
 int main()
 {
-	coPosition Root = NULL, temp = NULL;
+	coPosition Root = NULL;
+	coPosition Root1 = NULL;
 	char string[SIZE] = { 0 };
 	int num = 0;
 
@@ -56,7 +57,16 @@ int main()
 
 		printf("Enter minimal population of %s cities\n", string);
 		scanf("%d", &num);
-		SearchCountries(Root, string, num);
+
+		Root1 = SearchCountries(Root, string);
+
+		if (Root1 == NULL)
+		{
+			printf("That country does not exist in file countries.txt!\n");
+			return -1;
+		}
+
+		SearchCities(Root1->Head->Next, num);
 	}
 	return EXIT_SUCCESS;
 }
@@ -97,10 +107,10 @@ coPosition CreateCountry(char* name, char* file_name)
 		return NULL;
 	}
 
-	newCountry->Head = MakeHead(newCountry->Head);
 	strcpy(newCountry->name, name);
 	newCountry->Left = NULL;
 	newCountry->Right = NULL;
+	newCountry->Head = MakeHead(newCountry->Head);
 
 	ReadFromFile2(newCountry->Head, name, file_name);
 
@@ -118,7 +128,7 @@ int ReadFromFile2(ciPosition P, char* name, char* fname)
 	if (file == NULL)
 	{
 		printf("Cannot open the file!\n");
-		return NULL;
+		return -1;
 	}
 
 	while (!feof(file))
@@ -133,7 +143,7 @@ int ReadFromFile2(ciPosition P, char* name, char* fname)
 
 ciPosition MakeHead(ciPosition P)
 {
-	ciPosition new;
+	ciPosition new = NULL;
 
 	new = (ciPosition)malloc(sizeof(City));
 	if (new == NULL)
@@ -155,7 +165,7 @@ coPosition AddCountry(coPosition P, char* name, char* file_name)
 	if (P == NULL)
 		P = CreateCountry(name, file_name);
 
-	else if (strcmp(name, P->name) < 0)
+	else if (strcmp(name, P->name) < 1)
 		P->Left = AddCountry(P->Left, name, file_name);
 
 	else
@@ -255,19 +265,17 @@ int SearchCities(ciPosition P, int num)
 	return EXIT_SUCCESS;
 }
 
-int SearchCountries(coPosition P, char* name,int num)
+coPosition SearchCountries(coPosition P, char* name)
 {
 	if (P == NULL)
-		return EXIT_SUCCESS;
+		return NULL;
 
 	else if (strcmp(P->name, name) == 0)
-		SearchCities(P->Head, num);
+		return P;
 
 	else if (strcmp(P->name, name) < 0)
-		 SearchCountries(P->Left, name,num);
+		return SearchCountries(P->Left, name);
 
 	else
-	     SearchCountries(P->Right, name,num);
-
-	return EXIT_SUCCESS;
+		return SearchCountries(P->Right, name);
 }
