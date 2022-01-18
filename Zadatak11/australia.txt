@@ -1,0 +1,4 @@
+Melbourne 5000000
+Canberra 345821
+Sidney 5300000
+Brisbane 2300000

@@ -1,0 +1,4 @@
+Barcelona 1600000
+Madrid 3200000
+Bilbao 345821
+Sevilla 688711
